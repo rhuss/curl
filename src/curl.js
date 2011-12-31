@@ -60,7 +60,7 @@
 		undef,
 		aslice = [].slice,
 		// RegExp's used later, "cached" here
-		absUrlRx = /^\/|^[^:]+:\/\//,
+		absUrlRx = /^\/|^\w+:\/\//,
 		normalizeRx = /^(\.)(\.)?(\/|$)/,
 		findSlashRx = /\//,
 		dontAddExtRx = /\?/,
@@ -304,12 +304,15 @@
 			});
 		}
 
-		// if this is a plugin-specific path to resolve
-		if (prefix) {
-			fixPath(prefix + '!/' + name);
-		}
-		if (!found) {
-			fixPath(name);
+		// if not an absolute path
+		if (!absUrlRx.test(name)) {
+			// if this is a plugin-specific path to resolve
+			if (prefix) {
+				fixPath(prefix + '!/' + name);
+			}
+			if (!found) {
+				fixPath(name);
+			}
 		}
 
 		return path;
