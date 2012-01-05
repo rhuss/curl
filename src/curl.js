@@ -283,6 +283,8 @@
 		// module so it can be loaded.
 		var pathInfo, path, found;
 
+		path = name; // default to name if no paths config exists
+
 		function fixPath (name) {
 			path = name.replace(pathSearchRx, function (match) {
 
